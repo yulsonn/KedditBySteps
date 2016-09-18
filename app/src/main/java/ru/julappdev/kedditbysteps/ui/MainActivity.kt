@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import ru.julappdev.kedditbysteps.R
+import ru.julappdev.kedditbysteps.features.news.NewsFragment
 
 class MainActivity : AppCompatActivity() {
 
