@@ -6,6 +6,11 @@ import ru.julappdev.kedditbysteps.commons.adapter.ViewType
 /**
  * Created by yulia on 18.09.16.
  */
+data class RedditNews(
+        val after: String,
+        val before: String,
+        val news: List<RedditNewsItem>)
+
 data class RedditNewsItem(
         val author: String,
         val title: String,
