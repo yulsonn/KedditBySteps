@@ -2,20 +2,20 @@ package ru.julappdev.kedditbysteps.features.news
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.news_fragment.*
+import ru.julappdev.kedditbysteps.KedditApp
 import ru.julappdev.kedditbysteps.R
 import ru.julappdev.kedditbysteps.commons.InfiniteScrollListener
 import ru.julappdev.kedditbysteps.commons.RedditNews
 import ru.julappdev.kedditbysteps.commons.RxBaseFragment
 import ru.julappdev.kedditbysteps.commons.extensions.inflate
 import ru.julappdev.kedditbysteps.features.news.adapter.NewsAdapter
-import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
+import javax.inject.Inject
 
 /**
  * Created by yulia on 17.09.16.
@@ -26,8 +26,13 @@ class NewsFragment : RxBaseFragment() {
         private val KEY_REDDIT_NEWS = "redditNews"
     }
 
+    @Inject lateinit var newsManager: NewsManager
     private var redditNews: RedditNews? = null
-    private val newsManager by lazy { NewsManager() }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        KedditApp.newsComponent.inject(this)
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return container?.inflate(R.layout.news_fragment)
@@ -71,7 +76,7 @@ class NewsFragment : RxBaseFragment() {
          */
         val subscription = newsManager.getNews(redditNews?.after ?: "")
                 .subscribeOn(Schedulers.io())
-                .subscribe (
+                .subscribe(
                         { retrievedNews ->
                             redditNews = retrievedNews
                             (news_list.adapter as NewsAdapter).addNews(retrievedNews.news)
