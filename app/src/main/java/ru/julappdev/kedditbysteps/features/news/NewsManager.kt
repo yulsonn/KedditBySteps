@@ -1,6 +1,7 @@
 package ru.julappdev.kedditbysteps.features.news
 
-import ru.julappdev.kedditbysteps.api.RestAPI
+import ru.julappdev.kedditbysteps.api.NewsAPI
+import ru.julappdev.kedditbysteps.api.NewsRestAPI
 import ru.julappdev.kedditbysteps.commons.RedditNews
 import ru.julappdev.kedditbysteps.commons.RedditNewsItem
 import rx.Observable
@@ -8,7 +9,7 @@ import rx.Observable
 /**
  * Created by yulia on 20.09.16.
  */
-class NewsManager(private val api: RestAPI = RestAPI()) {
+class NewsManager(private val api: NewsAPI = NewsRestAPI()) {
 
     /**
      *
